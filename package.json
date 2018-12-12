@@ -1,0 +1,15 @@
+{
+  "name": "tiltifyapi",
+  "version": "1.0.0",
+  "description": "This is a simple tool for interacting with the tiltify v3 api with node-js",
+  "main": "tiltify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tilitfy",
+    "v3.0"
+  ],
+  "author": "jbec1901 <jbec1901@protonmail.com>",
+  "license": "ISC"
+}
