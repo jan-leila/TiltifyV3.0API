@@ -83,6 +83,18 @@ exports.Tiltify = function(token){
   this.getCampaign = function(id){
     return new Campaign(this, id);
   }
+
+  this.getCause = function(id){
+    return new Cause(this, id);
+  }
+
+  this.getFundrasingEvent = function(id){
+    return new FundrasingEvent(this, id);
+  }
+
+  this.getTeam = function(id){
+    return new Team(this, id);
+  }
 }
 
 //Object for handeling users
@@ -221,11 +233,285 @@ var Campaign = function(api, id){
   }
 }
 
-//TODO:
-var Cause = function(api, id){};
+//Object for handeling cause's
+//TODO: create objects from get function in here
+//TODO: make sure it works
+var Cause = function(api, id){
+  this.api = api;
+  this.id = id;
 
-//TODO:
-var FundrasingEvent = function(api, id){};
+  this.getBase = function(){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/causes/' + this.id, function(data){
+        resolve(data);
+      })
+    });
+  }
 
-//TODO:
-var Team = function(api, id){};
+  this.getCampaigns = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/causes/' + this.id + '/campaigns';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        //TODO: turn into campaign objects
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getDonations = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/causes/' + this.id + '/donations';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getFundrasingEvents = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/causes/' + this.id + '/fundraising-events';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        //TODO: turn into FundrasingEvent objects
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getLeaderboards = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/causes/' + this.id + '/leaderboards';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        //Turn into User and Team objects
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getVisibilityOptions = function(){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/causes/' + this.id + '/visibility-options', function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getPermissions = function(){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/causes/' + this.id + '/permissions', function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  }
+};
+
+//Object for handeling fundrasing event's
+//TODO: create objects from get function in here
+//TODO: make sure it works
+var FundrasingEvent = function(api, id){
+  this.api = api;
+  this.id = id;
+
+  this.getBase = function(){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/fundraising-events/' + this.id, function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getCampaigns = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/fundraising-events/' + this.id + '/campaigns';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        //TODO: turn into campaign objects
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getDonations = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/fundraising-events/' + this.id + '/donations';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getIncentives = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/fundraising-events/' + this.id + '/incentives';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getLeaderboards = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/fundraising-events/' + this.id + '/leaderboards';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        resolve(data);
+      }, count)
+    });
+  }
+
+  this.getRegistrations = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/fundraising-events/' + this.id + '/registrations', function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getRegistrationFields = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/fundraising-events/' + this.id + '/registration-fields', function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getSchedule = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/fundraising-events/' + this.id + '/schedule', function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getVisibilityOptions = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/fundraising-events/' + this.id + '/visibility-options', function(data){
+        resolve(data);
+      })
+    });
+  }
+};
+
+//Object for handeling Team
+//TODO: create objects from get function in here
+//TODO: make sure it works
+var Team = function(api, id){
+  this.api = api;
+  this.id = id;
+
+  this.getBase = function(){
+    return new Promise((resolve, reject) => {
+      this.api.request('https://tiltify.com/api/v3/teams/' + this.id, function(data){
+        resolve(data);
+      })
+    });
+  }
+
+  this.getCampaigns = function(count = 20, position = undefined){
+    return new Promise((resolve, reject) => {
+      var url = 'https://tiltify.com/api/v3/teams/' + this.id + '/campaigns';
+      if(count < 100){
+        url += '?count=' + count;
+      }
+      else{
+        url += '?count=100';
+      }
+
+      if(position){
+        url += '&' + position;
+      }
+
+      this.api.request(url, function(data){
+        //TODO: turn into campaign objects
+        resolve(data);
+      }, count)
+    });
+  }
+};
