@@ -18,7 +18,7 @@ token = new tiltify("Access token"); //Found at https://tiltify.com/@me/dashboar
 campaign = token.getCampaign(campainID);
 campaign.getDonations(200)
 .then((donations) => {
-  console.log(donations.length);
+  console.log(donations);
 })
 
 ```
