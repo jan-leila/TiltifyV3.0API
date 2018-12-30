@@ -1,15 +1,27 @@
 {
   "name": "tiltifyapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a simple tool for interacting with the tiltify v3 api with node-js",
   "main": "tiltify.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "request": "^2.88.0"
+  },
   "keywords": [
     "tilitfy",
-    "v3.0"
+    "v3.0",
+    "api"
   ],
   "author": "jbec1901 <jbec1901@protonmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbec1901/TiltifyV3.0API.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jbec1901/TiltifyV3.0API/issues"
+  },
+  "homepage": "https://github.com/jbec1901/TiltifyV3.0API#readme"
 }

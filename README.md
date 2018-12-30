@@ -1,29 +1,59 @@
 # TiltifyV3.0API
 
 This is a simple tool for interfacing with the tiltify api over node.
-Currently on User and Campaign objects are supported.
+To get your api key you can got to: https://tiltify.com/@me/dashboard/account/apps/create
+The docs for the original API are at: https://tiltify.github.io/api/
+# Install
 
-To use this create a new Tiltify object with your token as a argument.
-From their the object created can run the getUser(id/username), getCampaign(id),getCause(id), getFundrasingEvent(id) and, getTeam(id) methods
-These methods will return a new object that you can run other methods on
+` npm install tiltifyapi `
+
+# Example
+
+```
+tiltify = require('tiltifyapi').Tiltify;
+
+//Create the api access object
+token = new tiltify("API KEY HERE");
+
+//Get a uesr
+user = token.getUser('exampleUsername');
+
+//Get a array of all the users campaigns
+campaigns = user.getCampaigns();
+
+//Print out the id of each campaign and the top 20 donations
+for(var i in campaigns){
+  campaign = campaigns[i];
+  console.log('campaign ID: ' + campaign.id);
+  var donations = getDonations();
+  for(var j in  donations){
+    console.log(donations[i]);
+  }
+}
+```
 
 ## User methods:
-getBase()
-getID()
-getCampaigns(count)
-getOwnedTeams(count)
-getTeams(count)
+```
+user.getBase()
+user.getID()
+user.getCampaigns(count)
+user.getOwnedTeams(count)
+user.getTeams(count)
+```
 
 ## Campaign methods:
-getBase()
-getDonations(count, position)
-getRewards(count)
-getPolls(count)
-getChallenges(count)
-getSchedule(count)
-getSupportingCampaigns(count)
+```
+campaign.getBase()
+campaign.getDonations(count, position)
+campaign.getRewards(count)
+campaign.getPolls(count)
+campaign.getChallenges(count)
+campaign.getSchedule(count)
+campaign.getSupportingCampaigns(count)
+```
 
 ## Cause methods:
+```
 getBase()
 getCampaigns()
 getDonations()
@@ -31,8 +61,10 @@ getFundrasingEvents()
 getLeaderboards()
 getVisibilityOptions()
 getpermissions()
+```
 
 ## FundrasingEvent
+```
 getBase()
 getCampaigns()
 getDonations()
@@ -42,7 +74,13 @@ getRegistrations()
 getRegistrationFields()
 getSchedule()
 getVisibilityOptions()
+```
 
 ## Team
+```
 getBase()
 getCampaigns()
+```
+# TODO:
+
+Add live stream chat integration
