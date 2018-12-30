@@ -8,28 +8,19 @@ The docs for the original API are at: https://tiltify.github.io/api/
 ` npm install tiltifyapi `
 
 # Example
-
 ```
 tiltify = require('tiltifyapi').Tiltify;
 
 //Create the api access object
-token = new tiltify("API KEY HERE");
+token = new tiltify("Access token"); //Found at https://tiltify.com/@me/dashboard/account/apps/create
 
 //Get a uesr
-user = token.getUser('exampleUsername');
+campaign = token.getCampaign(campainID);
+campaign.getDonations(200)
+.then((donations) => {
+  console.log(donations.length);
+})
 
-//Get a array of all the users campaigns
-campaigns = user.getCampaigns();
-
-//Print out the id of each campaign and the top 20 donations
-for(var i in campaigns){
-  campaign = campaigns[i];
-  console.log('campaign ID: ' + campaign.id);
-  var donations = getDonations();
-  for(var j in  donations){
-    console.log(donations[i]);
-  }
-}
 ```
 
 ## User methods:
