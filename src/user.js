@@ -98,7 +98,7 @@ class User extends tools.Datatype {
       api.request(`users/${this.id}/teams`, opts)
       .then((teams) => {
         resolve(teams.map((team) => {
-          return new team(team);
+          return new Team(team);
         }));
       })
       .catch(reject);

@@ -18,35 +18,35 @@ class Campain extends tools.Datatype {
     super(data);
   }
 
-  getDonations(api, id, opts, callback){
-    return api.request(`campaign/${id}/donations`, opts, callback);
+  getDonations(api, opts, callback){
+    return api.request(`campaigns/${this.id}/donations`, opts, callback);
   }
 
   getDonationStream(api, callback){
     //TODO:
   }
 
-  getRewards(api, id, opts, callback){
-    return api.request(`campaign/${id}/rewards`, opts, callback);
+  getRewards(api, opts, callback){
+    return api.request(`campaigns/${this.id}/rewards`, opts, callback);
   }
 
-  getPolls(api, id, opts, callback){
-    return api.request(`campaign/${id}/polls`, opts, callback);
+  getPolls(api, opts, callback){
+    return api.request(`campaigns/${this.id}/polls`, opts, callback);
   }
 
-  getChallenges(api, id, opts, callback){
-    return api.request(`campaign/${id}/challenges`, opts, callback);
+  getChallenges(api, opts, callback){
+    return api.request(`campaigns/${this.id}/challenges`, opts, callback);
   }
 
-  getSchedule(api, id, opts, callback){
-    return api.request(`campaign/${id}/schedule`, opts, callback);
+  getSchedule(api, opts, callback){
+    return api.request(`campaigns/${this.id}/schedule`, opts, callback);
   }
 
-  getSupporting(api, id, opts, callback){
+  getSupporting(api, opts, callback){
     ({ opts, callback } = tools.mapOpts(opts, callback));
 
     let prom = new Promise((resolve, reject) => {
-      api.request(`campaign/${id}/supporting-campaigns`, opts)
+      api.request(`campaigns/${this.id}/supporting-campaigns`, opts)
       .then((campaigns) => {
         resolve(campaigns.map((campaign) => {
           return new Campaign(campaign);

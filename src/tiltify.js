@@ -34,58 +34,52 @@ class Tiltify {
     }
     // Defualt options for opts
     opts = {...{
-      count: 20,
-      direction: undefined,
+      count: undefined,
+      direction: false,
       start: undefined,
     }, ...opts};
 
     // Run the requests
     let prom = new Promise((resolve, reject) => {
       // The fancy notation is to handel pagination (https://tiltify.github.io/api/topics/pagination.html)
-      _request.bind(this)(`${path}?count=${opts.count > 100? '100' : opts.count}${opts.direction !== undefined? `${opts.direction? 'after':'before'}=${opts.start}`:''}`)
+      let uri = `${path}?count=${opts.count === undefined || opts.count > 100? '100' : opts.count}${opts.direction !== undefined && opts.start !== undefined? `&${opts.direction? 'after':'before'}=${opts.start}`:''}`;
+      _request.bind(this)(uri)
       .then((res) => {
-        // If we have an erorr reject an error
         if(res.meta.status !== 200){
-          reject(new Error(`${res.meta.status}: ${path}`));
-          return;
+          return reject(new Error(`${res.meta.status}: ${path}`));
         }
 
+        // If we get an object back then just return the object
         if(!Array.isArray(res.data)){
-          resolve(res.data);
-          return;
+          return resolve(res.data);
         }
 
-        // The count for the next request is going to be however many we got lest then the current count
-        let newOpts = {
-          count: opts.count - res.data.length,
+        // If count is defined the get the next count
+        if(opts.count !== undefined){
+          opts.count -= res.data.length;
         }
 
-        // Return the chain if there is no more things left in the chain
-        if(opts.count < 0){
-          resolve(res.data);
-          return;
-        }
-        //If there is no more data in the direction that we are targeting then we are done
-        if(res.link === undefined || opts.direction && res.link.after === undefined || !opts.direction && res.link.before){
-          resolve(res.data);
-          return;
-        }
+        // return if there is nothing left in the count, got nothing back there isnt a next value
+        if(opts.count <= 0 || res.data.length === 0 || res.links === undefined || (opts.direction && res.links.next === undefined) || (!opts.direction && res.links.prev === undefined)){
+          return resolve(res.data);
+        };
 
         // Get the after/before for the next request
-        if(opts.direction || opts.direction === undefined){
-          newOpts.direction = true;
-          newOpts.start = res.data[res.data.length - 1].id;
+        if(opts.direction){
+          opts.start = res.data[0].id;
         }
         else {
-          newOpts.direction = false;
-          newOpts.start = res.data[0].id;
+          opts.start = res.data[res.data.length - 1].id;
         }
 
         // Make the next request
-        this.request(path, newOpts)
+        this.request(path, opts)
         .then((all) => {
-          resolve([...res.data, ...all]);
-          return;
+          if(!Array.isArray(all)){
+            return resolve(all);
+          }
+          console.log(res.data.length, all.length);
+          return resolve([...res.data, ...all]);
         })
         .catch(reject);
       })
