@@ -25,7 +25,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<User>} - a single user object
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getHolder(api, callback){
     let prom = new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<User[]>} - an array of all users found.
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getUsers(api, opts, callback){
     ({ opts, callback } = tools.mapOpts(opts, callback));
@@ -86,12 +86,12 @@ class User extends tools.Datatype {
    * @static
    *
    * @param {Tiltify} api - The Tiltify api key manager that we are using
-   * @param {Number|String} id - The id or the slug of the user target user
+   * @param {(Number|String)} id - The id or the slug of the user target user
    * @param {Function} [callback] - the callback function
    *
    * @returns {undefined} - returns nothing if callback was defined
    * @returns {Promise.<User>} - the user that was found
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getUser(api, id, callback){
     let prom = new Promise((resolve, reject) => {
@@ -136,7 +136,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<Campaign[]>} - an array of all users found.
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   getCampaigns(api, opts, callback){
     ({ opts, callback } = tools.mapOpts(opts, callback));
@@ -170,7 +170,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<Team[]>} - an array of all users found.
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   getCampaign(api, id, callback){
     let prom = new Promise((resolve, reject) => {
@@ -203,7 +203,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<Team[]>} - an array of all users found.
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   getOwnedTeams(api, opts, callback){
     ({ opts, callback } = tools.mapOpts(opts, callback));
@@ -240,7 +240,7 @@ class User extends tools.Datatype {
    *
    * @returns {undefined} - Returns nothing if callback is defined.
    * @returns {Promise.<Team[]>} - an array of all users found.
-   * @throws {Promise.<Error>} any error that gets rejected
+   * @throws {Promise.<Error>} - any error that gets rejected
    */
   getTeams(api, opts, callback){
     ({ opts, callback } = tools.mapOpts(opts, callback));
