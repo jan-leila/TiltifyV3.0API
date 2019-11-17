@@ -5,7 +5,7 @@ To get your api key you can got to: https://tiltify.com/@me/dashboard/account/ap
 The docs for the original API are at: https://tiltify.github.io/api/
 # Install
 
-` npm install tiltifyapi `
+` npm i --save tiltifyapi `
 
 # Example
 ```
