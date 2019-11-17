@@ -22,7 +22,24 @@ class Campain extends tools.Datatype {
     return api.request(`campaigns/${this.id}/donations`, opts, callback);
   }
 
-  getDonationStream(api, callback){
+  getDonationStream(api, timeout = 5000, callback){
+    if(typeof timeout === 'function'){
+      callback = timeout;
+      timeout = 5000;
+    }
+    this.getDonations(api, {count: 1})
+    .then((d) => {
+      let lastID = d[0].id;
+      return setInterval(() => {
+        this.getDonations(api, {count: 1, direction: true, start: lastID})
+        .then((donations) => {
+          if(lastID != donations[0].id){
+            lastID = donations[0].id;
+            callback(donations[0]);
+          }
+        })
+      }, timeout)
+    })
     //TODO:
   }
 
