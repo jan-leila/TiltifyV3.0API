@@ -1,6 +1,6 @@
 {
   "name": "tiltifyapi",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This is a simple tool for interacting with the tiltify v3 api with node-js",
   "main": "tiltify.js",
   "scripts": {},

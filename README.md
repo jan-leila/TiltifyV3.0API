@@ -5,6 +5,7 @@ This is a simple tool for interfacing with the tiltify api over nodeJS.
 To get your api key you can got to: https://tiltify.com/@me/dashboard/account/apps/create
 
 The docs for the original API are at: https://tiltify.github.io/api/
+
 # Install
 
 ` npm i --save tiltifyapi `
