@@ -56,8 +56,7 @@ class User extends tools.Datatype {
    * @param {Number} [opts.direction = true] - the direction to get users in
    * @param {Number} [opts.start] - the id of the users to start at
    *
-   * @returns {undefined} - Returns nothing if callback is defined.
-   * @returns {Promise.<User[]>} - an array of all users found.
+   * @returns {(undefined|Promise.<User[]>)} - an array of all users found.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getUsers(api, opts, callback){
@@ -90,8 +89,7 @@ class User extends tools.Datatype {
    * @param {(Number|String)} id - The id or the slug of the user target user
    * @param {Function} [callback] - the callback function
    *
-   * @returns {undefined} - returns nothing if callback was defined
-   * @returns {Promise.<User>} - the user that was found
+   * @returns {(undefined|Promise.<User>)} - the user that was found or nothing if callback was defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getUser(api, id, callback){
@@ -120,7 +118,7 @@ class User extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Campaign[]} user - all users that are found
+   * @param {Campaign[]} campaign - the campaign that was found
    */
   /**
    * Gets campaigns that this user is a part of
@@ -135,8 +133,7 @@ class User extends tools.Datatype {
    * @param {Number} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
-   * @returns {undefined} - Returns nothing if callback is defined.
-   * @returns {Promise.<Campaign[]>} - an array of all users found.
+   * @returns {(undefined|Promise.<Campaign)>} - the found campaign or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getCampaigns(api, opts, callback){
@@ -157,7 +154,7 @@ class User extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Team[]} user - all users that are found
+   * @param {Campaign[]} campaigns - all campaigns that are found
    */
   /**
    * Gets Teams that this user owns
@@ -170,7 +167,11 @@ class User extends tools.Datatype {
    * @param {Function} [callback] - the callback function
    *
    * @returns {undefined} - Returns nothing if callback is defined.
-   * @returns {Promise.<Team[]>} - an array of all users found.
+   * @param {(Object|Function)} [ opts ] - the options the callback funcion or nothing
+   * @param {(Object)} [ opts.count ] - the amount of campaigns that we want to get
+   * @param {(Object)} [ opts.direction = false ] - the direction to get the data
+   * @param {(Object)} [ opts.start ] - the id of the starting point of getting the campaigns
+   * @returns {(undefined|Promise.<Campaign[])>} - all campaigns found or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getCampaign(api, id, callback){
@@ -187,7 +188,7 @@ class User extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Team[]} user - all users that are found
+   * @param {Team[]} teams - all teams that are found
    */
   /**
    * Gets Teams that this user owns
@@ -202,8 +203,7 @@ class User extends tools.Datatype {
    * @param {Number} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
-   * @returns {undefined} - Returns nothing if callback is defined.
-   * @returns {Promise.<Team[]>} - an array of all users found.
+   * @returns {(undefined|Promise.<Team[]>)} - an array of all teams found or nothing if callback is defined.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getOwnedTeams(api, opts, callback){
@@ -239,8 +239,7 @@ class User extends tools.Datatype {
    * @param {Number} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
-   * @returns {undefined} - Returns nothing if callback is defined.
-   * @returns {Promise.<Team[]>} - an array of all users found.
+   * @returns {(undefined|Promise.<Team[]>)} - an array of all users found or nothing if callback is defined.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getTeams(api, opts, callback){
