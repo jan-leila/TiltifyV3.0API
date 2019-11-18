@@ -7,6 +7,7 @@ const Team = require('./team');
  * Users classes are used to store and request data
  * The static functions should be used to create new instances of the class
  * @class
+ * @since 2.0.0
  */
 class User extends tools.Datatype {
   /**

@@ -20,12 +20,43 @@ function _request(path){
     .catch(reject);
   });
 }
-
+/**
+ * This call holds the token and manages calls for it
+ * @class
+ * @since 2.0.0
+ */
 class Tiltify {
+  /**
+   * Token can be found at https://tiltify.com/@me/dashboard/account/apps/create
+   * @param {String} token - this is the token that you are using
+   */
   constructor(token){
     this.token = token;
   }
 
+  /**
+   * @callback callback
+   * @param {Error} err - any error that gets sent
+   * @param {(*[]|*)} user - returns the data found in the correct form
+   */
+  /**
+   * This class is used to make post requests
+   * @since 2.0.0
+   *
+   * @public
+   *
+   * @param {String} path - this is the path that you want to request past https://tiltify.com/api/v3/
+   * @param {(Object|Function)} [ opts ] - the options the callback funcion or nothing
+   * @param {(Object)} [ opts.count ] - the amount of objects that we want to get
+   * @param {(Object)} [ opts.direction = false ] - the direction to get the data
+   * @param {(Object)} [ opts.start ] - the id of the starting point of getting the data
+   * @param {(Function)} [ callback ] - the callback function or nothing
+   *
+   * @returns {undefined} - Returns nothing if callback is defined.
+   * @returns {Promise.<*>} - an object if the data comes as a single object.
+   * @returns {Promise.<*[]>} - an array of found data if the array comes in an array form.
+   * @throws {Promise.<Error>} - any error that gets rejected
+   */
   request(path, opts, callback){
     // Allow passing no opts but a callback
     if(typeof opts == 'function'){
