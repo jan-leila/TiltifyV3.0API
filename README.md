@@ -14,7 +14,7 @@ The docs for the original API are at: https://tiltify.github.io/api/
 ```javascript
 const { Tiltify, User } = require('tiltifyapi');
 let api = new Tiltify(/*Access token*/); //Found at https://tiltify.com/@me/dashboard/account/apps/create
-User.getUser(api, /*campainID*/)
+User.getUser(api, /*userID or userSlug*/)
 .then((user) => {
   return user.getCampaigns(api);
 })
