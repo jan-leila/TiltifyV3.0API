@@ -87,7 +87,7 @@ class User extends tools.Datatype {
    * @static
    *
    * @param {Tiltify} api - The Tiltify api key manager that we are using
-   * @param {(Number|String)} id - The id or the slug of the user target user
+   * @param {(Number|String)} id - The id or the slug of the target user
    * @param {Function} [callback] - the callback function
    *
    * @returns {(undefined|Promise.<User>)} - the user that was found or nothing if callback was defined
@@ -105,7 +105,7 @@ class User extends tools.Datatype {
   }
 
   /**
-   * Gets the user that the api key belongs to
+   * Creates the user object
    * @since 2.0.0
    *
    * @hideconstructor

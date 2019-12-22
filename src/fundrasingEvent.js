@@ -72,7 +72,7 @@ class FundrasingEvent extends tools.Datatype {
   }
 
   /**
-   * Gets the user that the api key belongs to
+   * Creates the fundrasingEvent object
    * @since 2.0.0
    *
    * @hideconstructor
@@ -101,7 +101,7 @@ class FundrasingEvent extends tools.Datatype {
    * @param {(Number|String)} [opts.start] - the id of the Campaigns to start at
    * @param {Function} [callback] - the callback function
    *
-   * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with an array FundrasingEvents
+   * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with an array Campaigns
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getCampaigns(api, opts, callback){
@@ -257,7 +257,7 @@ class FundrasingEvent extends tools.Datatype {
    * @param {Tiltify} api - The Tiltify api key manager that we are using
    * @param {Function} [callback] - the callback function
    *
-   * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an object containing the options
+   * @returns {(undefined|Promise.<Object>)} - nothing if callback is defined otherwise a promise with an object containing the options
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getVisibility(api, callback){
