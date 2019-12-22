@@ -53,8 +53,9 @@ class User extends tools.Datatype {
    * @param {Tiltify} api - The Tiltify api key manager that we are using
    * @param {(Object|Function)} [opts] - the options of the request or the callback function
    * @param {Number} [opts.count] - the amount of users to get. undefined for all
-   * @param {Number} [opts.direction = true] - the direction to get users in
-   * @param {Number} [opts.start] - the id of the users to start at
+   * @param {Boolean} [opts.direction = true] - the direction to get users in
+   * @param {(Number|String)} [opts.start] - the id of the users to start at
+   * @param {Function} [callback] - the callback function
    *
    * @returns {(undefined|Promise.<User[]>)} - an array of all users found.
    * @throws {Promise.<Error>} - any error that gets rejected
@@ -129,8 +130,8 @@ class User extends tools.Datatype {
    * @param {Tiltify} api - The Tiltify api key manager that we are using
    * @param {(Object|Function)} [opts] - the options of the request or the callback function
    * @param {Number} [opts.count] - the amount of users to get. undefined for all
-   * @param {Number} [opts.direction = true] - the direction to get users in
-   * @param {Number} [opts.start] - the id of the users to start at
+   * @param {Boolean} [opts.direction = true] - the direction to get users in
+   * @param {(Number|String)} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
    * @returns {(undefined|Promise.<Campaign)>} - the found campaign or nothing if callback is defined
@@ -167,10 +168,10 @@ class User extends tools.Datatype {
    * @param {Function} [callback] - the callback function
    *
    * @returns {undefined} - Returns nothing if callback is defined.
-   * @param {(Object|Function)} [ opts ] - the options the callback funcion or nothing
-   * @param {(Object)} [ opts.count ] - the amount of campaigns that we want to get
-   * @param {(Object)} [ opts.direction = false ] - the direction to get the data
-   * @param {(Object)} [ opts.start ] - the id of the starting point of getting the campaigns
+   * @param {(Object|Function)} [opts] - the options of the request or the callback function
+   * @param {Number} [opts.count] - the amount of users to get. undefined for all
+   * @param {Boolean} [opts.direction = true] - the direction to get users in
+   * @param {(Number|String)} [opts.start] - the id of the users to start at
    * @returns {(undefined|Promise.<Campaign[])>} - all campaigns found or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
@@ -199,8 +200,8 @@ class User extends tools.Datatype {
    * @param {Tiltify} api - The Tiltify api key manager that we are using
    * @param {(Object|Function)} [opts] - the options of the request or the callback function
    * @param {Number} [opts.count] - the amount of users to get. undefined for all
-   * @param {Number} [opts.direction = true] - the direction to get users in
-   * @param {Number} [opts.start] - the id of the users to start at
+   * @param {Boolean} [opts.direction = true] - the direction to get users in
+   * @param {(Number|String)} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
    * @returns {(undefined|Promise.<Team[]>)} - an array of all teams found or nothing if callback is defined.
@@ -235,8 +236,8 @@ class User extends tools.Datatype {
    * @param {Tiltify} api - The Tiltify api key manager that we are using
    * @param {(Object|Function)} [opts] - the options of the request or the callback function
    * @param {Number} [opts.count] - the amount of users to get. undefined for all
-   * @param {Number} [opts.direction = true] - the direction to get users in
-   * @param {Number} [opts.start] - the id of the users to start at
+   * @param {Boolean} [opts.direction = true] - the direction to get users in
+   * @param {(Number|String)} [opts.start] - the id of the users to start at
    * @param {Function} [callback] - the callback function
    *
    * @returns {(undefined|Promise.<Team[]>)} - an array of all users found or nothing if callback is defined.
