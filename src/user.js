@@ -119,7 +119,7 @@ class User extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Campaign[]} campaign - the campaign that was found
+   * @param {[Campaign]} campaign - the campaign that was found
    */
   /**
    * Gets campaigns that this user is a part of

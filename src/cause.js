@@ -41,12 +41,12 @@ class Cause extends tools.Datatype {
   }
 
   /**
-   * Gets the constructor that the api key belongs to
+   * creates the cause
    * @since 2.0.0
    *
    * @hideconstructor
    *
-   * @param {Object} data - The data for the event
+   * @param {Object} data - The data for the cause
    */
   constructor(data){
     super(data);
