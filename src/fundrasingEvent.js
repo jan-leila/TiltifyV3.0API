@@ -248,18 +248,18 @@ class FundrasingEvent extends tools.Datatype {
    * @param {Error} err - any error that gets sent
    * @param {Object} options - the visibility options
    */
- /**
-  * Gets the team that the api key belongs to
-  * @since 2.0.0
-  *
-  * @static
-  *
-  * @param {Tiltify} api - The Tiltify api key manager that we are using
-  * @param {Function} [callback] - the callback function
-  *
-  * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an object containing the options
-  * @throws {Promise.<Error>} - any error that gets rejected
-  */
+  /**
+   * Gets the team that the api key belongs to
+   * @since 2.0.0
+   *
+   * @static
+   *
+   * @param {Tiltify} api - The Tiltify api key manager that we are using
+   * @param {Function} [callback] - the callback function
+   *
+   * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an object containing the options
+   * @throws {Promise.<Error>} - any error that gets rejected
+   */
   getVisibility(api, callback){
     return api.request(`fundraising-events/${this.id}/visibility-options`, callback);
   }
