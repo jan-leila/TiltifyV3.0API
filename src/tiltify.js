@@ -5,9 +5,9 @@ const fetch = require('./fetch');
 //TODO: PATCH routes
 // This is a helper function for making requests
 // It should be bound to an instance of the Tiltify class
-function _request(path){
+function _request(path, domain){
   return new Promise((resolve, reject) => {
-    fetch(`https://tiltify.com/api/v3/${path}`, {
+    fetch(`${domain}/api/v3/${path}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${this.token}`
@@ -30,8 +30,9 @@ class Tiltify {
    * Token can be found at https://tiltify.com/@me/dashboard/account/apps/create
    * @param {String} token - this is the token that you are using
    */
-  constructor(token){
+  constructor(token, domain = 'https://tiltify.com'){
     this.token = token;
+    this.domain = domain;
   }
 
   /**
@@ -74,7 +75,7 @@ class Tiltify {
     let prom = new Promise((resolve, reject) => {
       // The fancy notation is to handel pagination (https://tiltify.github.io/api/topics/pagination.html)
       let uri = `${path}?count=${opts.count === undefined || opts.count > 100? '100' : opts.count}${opts.direction !== undefined && opts.start !== undefined? `&${opts.direction? 'after':'before'}=${opts.start}`:''}`;
-      _request.bind(this)(uri)
+      _request.bind(this)(uri, this.domain)
       .then((res) => {
         if(res.meta.status !== 200){
           return reject(new Error(`${res.meta.status}: ${path}`));
