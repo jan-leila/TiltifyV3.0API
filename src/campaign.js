@@ -101,7 +101,7 @@ class Campain extends tools.Datatype {
       return setInterval(() => {
         this.getDonations(api, {count: 1, direction: true, start: lastID})
         .then((donations) => {
-          if(lastID != donations[0].id){
+          if(donations.length !== 0 && lastID !== donations[0].id){
             lastID = donations[0].id;
             callback(donations[0]);
           }
