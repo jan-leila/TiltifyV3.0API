@@ -29,12 +29,13 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<FundrasingEvent[]>)} - nothing if callback is defined otherwise a promise with an array FundrasingEvents
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getEvents(api, opts, callback){
+  static getEvents(...args){
+    let { api, opts, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`fundraising-events`, opts)
       .then((events) => {
         resolve(events.map((event) => {
-          return new FundrasingEvent(event);
+          return new FundrasingEvent(api, event);
         }));
       })
       .catch(reject);
@@ -60,11 +61,12 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<FundrasingEvent)} - nothing if callback is defined otherwise a promise with an array FundrasingEvents
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getEvent(api, id, callback){
+  static getEvent(...args){
+    let { api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`fundraising-events/${id}`)
       .then((event) => {
-        resolve(new FundrasingEvent(event));
+        resolve(new FundrasingEvent(api, event));
       })
       .catch(reject);
     });
@@ -79,8 +81,8 @@ class FundrasingEvent extends tools.Datatype {
    *
    * @param {Object} data - The data for the event
    */
-  constructor(data){
-    super(data);
+  constructor(api, data){
+    super(api, data);
   }
 
   /**
@@ -104,14 +106,14 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with an array Campaigns
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaigns(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getCampaigns(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request(`fundraising-events/${this.id}/campaigns`)
       .then((campaigns) => {
         resolve(campaigns.map((campaign) => {
-          return new Campaign(campaign);
+          return new Campaign(api, campaign);
         }));
       })
       .catch(reject);
@@ -139,7 +141,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array Incentives
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getIncentives(api, opts, callback){
+  getIncentives(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/incentives`, opts, callback);
   }
 
@@ -164,7 +167,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array leaderboards
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getLeaderboards(api, opts, callback){
+  getLeaderboards(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/leaderboards`, opts, callback);
   }
 
@@ -189,7 +193,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array registrations
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getRegistrations(api, opts, callback){
+  getRegistrations(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/registrations`, opts, callback);
   }
 
@@ -214,7 +219,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array registrations
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getRegistrationFields(api, opts, callback){
+  getRegistrationFields(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/registration-fields`, opts, callback);
   }
 
@@ -239,7 +245,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array events
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getSchedule(api, opts, callback){
+  getSchedule(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/schedule`, opts, callback);
   }
 
@@ -260,7 +267,8 @@ class FundrasingEvent extends tools.Datatype {
    * @returns {(undefined|Promise.<Object>)} - nothing if callback is defined otherwise a promise with an object containing the options
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getVisibility(api, callback){
+  getVisibility(...args){
+    let { api = this.api, callback } = tools.mapArgs(args);
     return api.request(`fundraising-events/${this.id}/visibility-options`, callback);
   }
 }

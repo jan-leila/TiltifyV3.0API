@@ -26,25 +26,24 @@ function promback(prom, callback){
   .catch(callback);
 }
 
-/**
- * Takes in opts and a callback and re-formats them to match what is expected
- * @since 2.0.0
- *
- * @param {(Object|Function)} opts - ether the options or the callback funcion
- * @param {(Function|undefined)} callback - callback function or nothing
- *
- * @returns {Object} data
- * @returns {Object.Object} data.opts
- * @returns {Object.Function} data.callback
- */
-function mapOpts(opts, callback){
-  if(typeof opts === 'function'){
-    return {
-      opts: {},
-      callback: callback
+function mapArgs(args){
+  let api, id, opts, callback;
+  args.map((arg) => {
+    switch(arg.constructor.name){
+      case 'Tiltify':
+        api = arg;
+        break;
+      case 'Object':
+        opts = arg;
+        break;
+      case 'Function':
+        callback = arg;
+        break;
+      default:
+        id = arg;
     }
-  }
-  return { opts: opts, callback: callback };
+  });
+  return {api, id, opts, callback};
 }
 
 /**
@@ -59,7 +58,8 @@ class Datatype {
    *
    * @param {Object} data - object of all data that will be attached to the class
    */
-  constructor(data){
+  constructor(api, data){
+    this.api = api;
     for(let attribute in data){
       if(this[attribute] === undefined){
         this[attribute] = data[attribute];
@@ -69,5 +69,5 @@ class Datatype {
 }
 
 exports.promback = promback;
-exports.mapOpts = mapOpts;
+exports.mapArgs = mapArgs;
 exports.Datatype = Datatype;

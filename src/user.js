@@ -28,11 +28,12 @@ class User extends tools.Datatype {
    * @returns {Promise.<User>} - a single user object
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getHolder(api, callback){
+  static getHolder(...args){
+    let { api, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request('user')
       .then((data) => {
-        resolve(new User(data));
+        resolve(new User(api, data));
       })
       .catch(reject);
     });
@@ -60,14 +61,14 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<User[]>)} - an array of all users found.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getUsers(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  static getUsers(...args){
+    let { api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request('users', opts)
       .then((data) => {
         resolve(data.map((user) => {
-          return new User(user);
+          return new User(api, user);
         }));
       })
       .catch(reject);
@@ -93,11 +94,12 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<User>)} - the user that was found or nothing if callback was defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getUser(api, id, callback){
+  static getUser(...args){
+    let { api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`users/${id}`)
       .then((user) => {
-        resolve(new User(user));
+        resolve(new User(api, user));
       })
       .catch(reject);
     });
@@ -112,8 +114,8 @@ class User extends tools.Datatype {
    *
    * @param {Object} data - The data for the users
    */
-  constructor(data){
-    super(data);
+  constructor(api, data){
+    super(api, data);
   }
 
   /**
@@ -137,14 +139,14 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign)>} - the found campaign or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaigns(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getCampaigns(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request(`users/${this.id}/campaigns`, opts)
       .then((campaigns) => {
         resolve(campaigns.map((campaign) => {
-          return new Campaign(campaign);
+          return new Campaign(api, campaign);
         }));
       })
       .catch(reject);
@@ -175,11 +177,12 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign[])>} - all campaigns found or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaign(api, id, callback){
+  getCampaign(...args){
+    let { api = this.api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`users/${this.id}/campaigns/${id}`)
       .then((campaign) => {
-        resolve(new Campaign(campaign));
+        resolve(new Campaign(api, campaign));
       })
       .catch(reject);
     });
@@ -207,14 +210,14 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<Team[]>)} - an array of all teams found or nothing if callback is defined.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getOwnedTeams(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getOwnedTeams(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request(`users/${this.id}/owned-teams`, opts)
       .then((teams) => {
         resolve(teams.map((team) => {
-          return new team(team);
+          return new Team(api, team);
         }));
       })
       .catch(reject);
@@ -243,14 +246,14 @@ class User extends tools.Datatype {
    * @returns {(undefined|Promise.<Team[]>)} - an array of all users found or nothing if callback is defined.
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getTeams(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getTeams(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request(`users/${this.id}/teams`, opts)
       .then((teams) => {
         resolve(teams.map((team) => {
-          return new Team(team);
+          return new Team(api, team);
         }));
       })
       .catch(reject);

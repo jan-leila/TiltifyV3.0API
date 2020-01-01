@@ -25,12 +25,13 @@ class Team extends tools.Datatype {
    * @returns {(undefined|Promise.<Team[]>)} - nothing if callback is defined otherwise a promise with an array team objects
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getTeams(api, opts, callback){
+  static getTeams(...args){
+    let { api, opts, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`teams`, opts)
       .then((teams) => {
         resolve(teams.map((team) => {
-          return new Team(team);
+          return new Team(api, team);
         }));
       })
       .catch(reject);
@@ -56,11 +57,12 @@ class Team extends tools.Datatype {
    * @returns {(undefined|Promise.<Team>)} - nothing if callback is defined otherwise a promise with a single team object
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getTeam(api, id, callback){
+  static getTeam(...args){
+    let { api = this.api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`teams/${id}`)
       .then((team) => {
-        resolve(new Team(team));
+        resolve(new Team(api, team));
       })
       .catch(reject);
     });
@@ -75,8 +77,8 @@ class Team extends tools.Datatype {
    *
    * @param {Object} data - The data for the team
    */
-  constructor(data){
-    super(data);
+  constructor(api, data){
+    super(api, data);
   }
 
   /**
@@ -97,11 +99,12 @@ class Team extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with a single campaign object
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaign(api, id, callback){
+  getCampaign(...args){
+    let { api = this.api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`teams/${this.id}/campaigns/${id}`)
       .then((campaign) => {
-        resolve(new Campaign(campaign));
+        resolve(new Campaign(api, campaign));
       })
     });
     return tools.promback(prom, callback);
@@ -125,13 +128,14 @@ class Team extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with a single campaign object
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaigns(api, opts, callback){
+  getCampaigns(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     ({ opts, callback } = tools.mapOpts(opts, callback));
     let prom = new Promise((resolve, reject) => {
       api.request(`/teams/${this.id}/campaigns`, opts)
       .then((campaigns) => {
         resolve(campaigns.map((campaign) => {
-          return new Campaign(campaign);
+          return new Campaign(api, campaign);
         }))
       })
       .catch(reject);

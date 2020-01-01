@@ -26,6 +26,13 @@ function _request(path, domain){
  * @since 2.0.0
  */
 class Tiltify {
+
+  static User = require('./user');
+  static Campaign = require('./campaign');
+  static Cause = require('./cause');
+  static FundrasingEvent = require('./fundrasingEvent');
+  static Team = require('./team');
+
   /**
    * Token can be found at https://tiltify.com/@me/dashboard/account/apps/create
    * @param {String} token - this is the token that you are using
@@ -119,6 +126,34 @@ class Tiltify {
     })
 
     return tools.promback(prom, callback);
+  }
+
+  getCampaign(...args){
+    return this.constructor.Campaign.getCampaign(this, ...args);
+  }
+  getCause(...args){
+    return this.constructor.Cause.getCause(this, ...args);
+  }
+  getEvents(...args){
+    return this.constructor.FundrasingEvent.getEvents(this, ...args);
+  }
+  getEvent(...args){
+    return this.constructor.FundrasingEvent.getEvent(this, ...args);
+  }
+  getTeams(...args){
+    return this.constructor.Team.getTeams(this, ...args);
+  }
+  getTeam(...args){
+    return this.constructor.Team.getTeam(this, ...args);
+  }
+  getHolder(){
+    return this.constructor.User.getHolder(this);
+  }
+  getUsers(...args){
+    return this.constructor.User.getUsers(this, ...args);
+  }
+  getUser(...args){
+    return this.constructor.User.getUser(this, ...args);
   }
 }
 

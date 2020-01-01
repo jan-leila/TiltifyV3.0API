@@ -29,11 +29,12 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<Cause>)} - the cause that was found or nothing if callback was defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getCause(api, id, callback){
+  static getCause(...args){
+    let { api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`causes/${id}`)
       .then((cause) => {
-        return new Cause(cause);
+        return new Cause(api, cause);
       })
       .catch(reject);
     });
@@ -48,8 +49,8 @@ class Cause extends tools.Datatype {
    *
    * @param {Object} data - The data for the cause
    */
-  constructor(data){
-    super(data);
+  constructor(api, data){
+    super(api, data);
   }
 
   /**
@@ -73,14 +74,14 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with an array Campaigns
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getCampaigns(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getCampaigns(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       apt.request(`causes/${this.id}/campaigns`, opts)
       .then((campaigns) => {
         return campaigns.map((campaign) => {
-          return new Campaign(campaign);
+          return new Campaign(api, campaign);
         });
       })
       .catch(reject);
@@ -109,14 +110,14 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<FundrasingEvent>)} - nothing if callback is defined otherwise a promise with an array Campaigns
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getFundrasingEvents(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getFundrasingEvents(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       apt.request(`causes/${this.id}/fundraising-events`, opts)
       .then((events) => {
         return events.map((event) => {
-          return new FundrasingEvent(event);
+          return new FundrasingEvent(api, event);
         });
       })
       .catch(reject);
@@ -146,7 +147,8 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<object>)} - nothing if callback is defined otherwise a promise with an array leaderboard objects
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getLeaderboard(api, opts, callback){
+  getLeaderboard(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`causes/${this.id}/leaderboards`, opts, callback);
   }
 
@@ -168,7 +170,8 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<Object>)} - nothing if callback is defined otherwise a promise with an object containing the options
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getVisibility(api, callback){
+  getVisibility(...args){
+    let { api = this.api, callback } = tools.mapArgs(args);
     return api.request(`causes/${this.id}/visibility-options`, callback);
   }
   //TODO:
@@ -192,7 +195,8 @@ class Cause extends tools.Datatype {
    * @returns {(undefined|Promise.<Object>)} - nothing if callback is defined otherwise a promise with an object containing the permissions
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getPermissions(api, callback){
+  getPermissions(...args){
+    let { api = this.api, callback } = tools.mapArgs(args);
     return api.request(`causes/${this.id}/permissions`, callback);
   }
 }

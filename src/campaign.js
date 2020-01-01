@@ -27,11 +27,12 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Campain>)} - the cmpain that was found or nothing if callback was defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  static getCampaign(api, id, callback){
+  static getCampaign(...args){
+    let { api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`campains/${id}`)
       .then((campain) => {
-        resolve(new Campain(campain));
+        resolve(new Campain(api, campain));
       })
       .catch(reject);
     });
@@ -46,8 +47,8 @@ class Campain extends tools.Datatype {
    *
    * @param {Object} data - The data for the campain
    */
-  constructor(data){
-    super(data);
+  constructor(api, data){
+    super(api, data);
   }
 
   /**
@@ -71,7 +72,8 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<object)>} - the found donation or nothing if callback is defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getDonations(api, opts, callback){
+  getDonations(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`campaigns/${this.id}/donations`, opts, callback);
   }
 
@@ -90,11 +92,8 @@ class Campain extends tools.Datatype {
    * @param {Number} [timeout = 5000] - the amount of time to wait between checks
    * @param {Function} [callback] - the callback function
    */
-  getDonationStream(api, timeout = 5000, callback){
-    if(typeof timeout === 'function'){
-      callback = timeout;
-      timeout = 5000;
-    }
+  getDonationStream(...args){
+    let { api = this.api, id: timeout = 5000, callback } = tools.mapArgs(args);
     this.getDonations(api, {count: 1})
     .then((d) => {
       let lastID = d[0].id;
@@ -131,7 +130,8 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array leaderboards
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getRewards(api, opts, callback){
+  getRewards(...args){
+    let { api = this.api, id, opts, callback } = tools.mapArgs(args);
     return api.request(`campaigns/${this.id}/rewards`, opts, callback);
   }
 
@@ -156,7 +156,8 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array leaderboards
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getPolls(api, opts, callback){
+  getPolls(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`campaigns/${this.id}/polls`, opts, callback);
   }
 
@@ -181,7 +182,8 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array leaderboards
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getChallenges(api, opts, callback){
+  getChallenges(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`campaigns/${this.id}/challenges`, opts, callback);
   }
 
@@ -206,7 +208,8 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Array>)} - nothing if callback is defined otherwise a promise with an array leaderboards
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getSchedule(api, opts, callback){
+  getSchedule(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
     return api.request(`campaigns/${this.id}/schedule`, opts, callback);
   }
 
@@ -232,14 +235,14 @@ class Campain extends tools.Datatype {
    * @returns {(undefined|Promise.<Campain>)} - nothing if callback is defined otherwise a promise with an array of campains
    * @throws {Promise.<Error>} - any error that gets rejected
    */
-  getSupporting(api, opts, callback){
-    ({ opts, callback } = tools.mapOpts(opts, callback));
+  getSupporting(...args){
+    let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
       api.request(`campaigns/${this.id}/supporting-campaigns`, opts)
       .then((campaigns) => {
         resolve(campaigns.map((campaign) => {
-          return new Campaign(campaign);
+          return new Campaign(api, campaign);
         }));
       })
       .catch(reject);
