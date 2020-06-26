@@ -13,14 +13,14 @@
     "v3.0",
     "api"
   ],
-  "author": "jbec1901 <jbec1901@protonmail.com>",
+  "author": "jan-leila <jan-leila@protonmail.com>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbec1901/TiltifyV3.0API.git"
+    "url": "git+https://github.com/jan-leila/TiltifyV3.0API.git"
   },
   "bugs": {
-    "url": "https://github.com/jbec1901/TiltifyV3.0API/issues"
+    "url": "https://github.com/jan-leila/TiltifyV3.0API/issues"
   },
-  "homepage": "https://github.com/jbec1901/TiltifyV3.0API#readme"
+  "homepage": "https://github.com/jan-leila/TiltifyV3.0API#readme"
 }
