@@ -138,6 +138,38 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
+   * @param {reward} reward - the new donation that was found
+   */
+  /**
+   * Creates a stream of donations that runs a callback every time a new doantion is found
+   * @since 2.0.1
+   *
+   * @public
+   *
+   * @param {Tiltify} api - The Tiltify api key manager that we are using
+   * @param {Number} [timeout = 5000] - the amount of time to wait between checks
+   * @param {Function} [callback] - the callback function
+   */
+    getRewardStream(...args){
+      let { api = this.api, id: timeout = 5000, callback } = tools.mapArgs(args);
+      this.getRewards(api, {count: 1})
+      .then((d) => {
+        let lastID = d[0].id;
+        return setInterval(() => {
+          this.getRewards(api, {count: 1, direction: true, start: lastID})
+          .then((rewards) => {
+            if(rewards.length !== 0 && lastID !== rewards[0].id){
+              lastID = rewards[0].id;
+              callback(rewards[0]);
+            }
+          })
+        }, timeout)
+      });
+    }
+
+  /**
+   * @callback callback
+   * @param {Error} err - any error that gets sent
    * @param {Array} polls - the polls on the campain that are found
    */
   /**
