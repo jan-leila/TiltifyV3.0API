@@ -15,7 +15,7 @@ class Campain extends tools.Datatype {
    * @param {Campain} cmpain - the cmpain that was found
    */
   /**
-   * Gets a target cmpain
+   * Gets a target campain
    * @since 2.0.0
    *
    * @static
