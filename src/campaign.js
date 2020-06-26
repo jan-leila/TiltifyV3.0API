@@ -142,7 +142,7 @@ class Campain extends tools.Datatype {
    */
   /**
    * Creates a stream of donations that runs a callback every time a new doantion is found
-   * @since 2.0.1
+   * @since 2.2.2
    *
    * @public
    *
