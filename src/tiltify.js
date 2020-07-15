@@ -117,7 +117,6 @@ class Tiltify {
           if(!Array.isArray(all)){
             return resolve(all);
           }
-          console.log(res.data.length, all.length);
           return resolve([...res.data, ...all]);
         })
         .catch(reject);
