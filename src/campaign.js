@@ -7,15 +7,15 @@ const tools = require('./tools');
  * @class
  * @since 2.0.0
  */
-class Campain extends tools.Datatype {
+class Campaign extends tools.Datatype {
 
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Campain} cmpain - the cmpain that was found
+   * @param {Campaign} cmpain - the cmpain that was found
    */
   /**
-   * Gets a target campain
+   * Gets a target campaign
    * @since 2.0.0
    *
    * @static
@@ -24,15 +24,15 @@ class Campain extends tools.Datatype {
    * @param {(Number|String)} id - The id or the slug of the target cmpain
    * @param {Function} [callback] - the callback function
    *
-   * @returns {(undefined|Promise.<Campain>)} - the cmpain that was found or nothing if callback was defined
+   * @returns {(undefined|Promise.<Campaign>)} - the cmpain that was found or nothing if callback was defined
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   static getCampaign(...args){
     let { api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
-      api.request(`campains/${id}`)
-      .then((campain) => {
-        resolve(new Campain(api, campain));
+      api.request(`campaigns/${id}`)
+      .then((campaign) => {
+        resolve(new Campaign(api, campaign));
       })
       .catch(reject);
     });
@@ -40,12 +40,12 @@ class Campain extends tools.Datatype {
   }
 
   /**
-   * creates the campain
+   * creates the Campaign
    * @since 2.0.0
    *
    * @hideconstructor
    *
-   * @param {Object} data - The data for the campain
+   * @param {Object} data - The data for the campaign
    */
   constructor(api, data){
     super(api, data);
@@ -112,7 +112,7 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Array} rewards - the rewards on the campain that are found
+   * @param {Array} rewards - the rewards on the campaign that are found
    */
   /**
    * Gets the team that the api key belongs to
@@ -170,7 +170,7 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Array} polls - the polls on the campain that are found
+   * @param {Array} polls - the polls on the campaign that are found
    */
   /**
    * Gets the team that the api key belongs to
@@ -196,7 +196,7 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Array} challenges - the challenges on the campain that are found
+   * @param {Array} challenges - the challenges on the campaign that are found
    */
   /**
    * Gets the team that the api key belongs to
@@ -222,7 +222,7 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {Array} schedules - the schedules on the campain that are found
+   * @param {Array} schedules - the schedules on the campaign that are found
    */
   /**
    * Gets the team that the api key belongs to
@@ -249,7 +249,7 @@ class Campain extends tools.Datatype {
   /**
    * @callback callback
    * @param {Error} err - any error that gets sent
-   * @param {[Campain]} schedules - the campaigns that supporte this one
+   * @param {[Campaign]} schedules - the campaigns that supporte this one
    */
   /**
    * Gets the team that the api key belongs to
@@ -264,7 +264,7 @@ class Campain extends tools.Datatype {
    * @param {(Number|String)} [opts.start] - the id of the campaign to start at
    * @param {Function} [callback] - the callback function
    *
-   * @returns {(undefined|Promise.<Campain>)} - nothing if callback is defined otherwise a promise with an array of campains
+   * @returns {(undefined|Promise.<Campaign>)} - nothing if callback is defined otherwise a promise with an array of campaigns
    * @throws {Promise.<Error>} - any error that gets rejected
    */
   getSupporting(...args){
@@ -283,4 +283,4 @@ class Campain extends tools.Datatype {
   }
 }
 
-module.exports = Campain;
+module.exports = Campaign;
