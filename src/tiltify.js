@@ -81,11 +81,12 @@ class Tiltify {
     // Run the requests
     let prom = new Promise((resolve, reject) => {
       // The fancy notation is to handel pagination (https://tiltify.github.io/api/topics/pagination.html)
-      let uri = `${path}?count=${opts.count === undefined || opts.count > 100? '100' : opts.count}${opts.direction !== undefined && opts.start !== undefined? `&${opts.direction? 'after':'before'}=${opts.start}`:''}`;
+      let uri = `${path}?count=${opts.count === undefined || opts.count > 100 ? '100' : opts.count}${opts.direction !== undefined && opts.start !== undefined ? `&${opts.direction ? 'after' : 'before'}=${opts.start}` : ''}`;
+      //console.info(`Requesting uri:${uri}`);
       _request.bind(this)(uri, this.domain)
       .then((res) => {
         if(res.meta.status !== 200){
-          return reject(new Error(`${res.meta.status}: ${path}`));
+          return reject(new Error(`${res.meta.status}: ${path} : ${res.error.title} : ${res.error.detail}`));
         }
 
         // If we get an object back then just return the object
