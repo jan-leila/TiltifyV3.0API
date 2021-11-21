@@ -12,7 +12,8 @@ The docs for the original API are at: https://tiltify.github.io/api/
 
 # Example
 ```javascript
-const { Tiltify, User } = require('tiltifyapi');
+const Tiltify = require('tiltifyapi');
+const {User} = Tiltify;
 let api = new Tiltify(/*Access token*/); //Found at https://tiltify.com/@me/dashboard/account/apps/create
 User.getUser(api, /*userID or userSlug*/)
 .then((user) => {

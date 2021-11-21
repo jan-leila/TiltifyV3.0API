@@ -34,7 +34,7 @@ class Cause extends tools.Datatype {
     let prom = new Promise((resolve, reject) => {
       api.request(`causes/${id}`)
       .then((cause) => {
-        return new Cause(api, cause);
+        resolve(new Cause(api, cause));
       })
       .catch(reject);
     });
@@ -78,11 +78,11 @@ class Cause extends tools.Datatype {
     let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
-      apt.request(`causes/${this.id}/campaigns`, opts)
+      api.request(`causes/${this.id}/campaigns`, opts)
       .then((campaigns) => {
-        return campaigns.map((campaign) => {
+        resolve(campaigns.map((campaign) => {
           return new Campaign(api, campaign);
-        });
+        }));
       })
       .catch(reject);
     });
@@ -114,11 +114,11 @@ class Cause extends tools.Datatype {
     let { api = this.api, opts, callback } = tools.mapArgs(args);
 
     let prom = new Promise((resolve, reject) => {
-      apt.request(`causes/${this.id}/fundraising-events`, opts)
+      api.request(`causes/${this.id}/fundraising-events`, opts)
       .then((events) => {
-        return events.map((event) => {
+        resolve(events.map((event) => {
           return new FundrasingEvent(api, event);
-        });
+        }));
       })
       .catch(reject);
     });

@@ -103,9 +103,9 @@ class Team extends tools.Datatype {
     let { api = this.api, id, callback } = tools.mapArgs(args);
     let prom = new Promise((resolve, reject) => {
       api.request(`teams/${this.id}/campaigns/${id}`)
-      .then((campaign) => {
-        resolve(new Campaign(api, campaign));
-      })
+        .then((campaign) => {
+          resolve(new Campaign(api, campaign));
+        }).catch(reject)
     });
     return tools.promback(prom, callback);
   }
